@@ -55,7 +55,8 @@ export default function ReadMethod({
         functionName,
         chainId: chainId ? chainId : mainnet.id,
         address: contractAddress,
-        result: JSON.stringify(data?.toString()),
+        result: data,
+        abi: abi
       })
     }
   }, [chainId, contractAddress, data, error, functionName, isFetchedAfterMount, isRefetching, pushResponse])

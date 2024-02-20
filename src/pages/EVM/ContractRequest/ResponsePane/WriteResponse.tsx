@@ -16,7 +16,8 @@ export default function ReadResponse({ response }: { response: Response }) {
         {isLoading && <Loader className="h-4 w-4 animate-spin" />}
         TRANSACTED TO {response.functionName} at [ChainID={response.chainId} {response.address}]
       </span>
-      <p className="underline">tx: {response.txHash}</p>
+      {response.error ? <p className="text-red-500">Error: {response.error.message}</p> :  <p className="underline">tx: {response.txHash}</p>}
+     
       {!isLoading && data && (
         <Inspector
           table={false}

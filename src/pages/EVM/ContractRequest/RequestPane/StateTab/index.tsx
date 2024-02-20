@@ -60,7 +60,9 @@ export default function StateTab({ smartContract }: { smartContract: EVMContract
                 return (
                   <TableRow key={prefetchableMethods[idx].functionName}>
                     <TableCell>{`${prefetchableMethods[idx].functionName}`}</TableCell>
-                    <TableCell>{`${row.result}`}</TableCell>
+                    <TableCell>
+                      {`${JSON.stringify(row.result, (_, v) => typeof v === 'bigint' ? v.toString() : v)}`}
+                    </TableCell>
                   </TableRow>
                 )
               })}

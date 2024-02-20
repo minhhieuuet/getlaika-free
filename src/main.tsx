@@ -15,6 +15,9 @@ if (gtmId) {
   }
   TagManager.initialize(tagManagerArgs)
 }
+(BigInt.prototype as any).toJSON = function() {
+    return this.toString()
+} 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

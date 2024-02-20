@@ -7,7 +7,8 @@ export interface Response {
   address: `0x${string}`
   result?: string
   txHash?: `0x${string}`
-  error?: Error
+  error?: Error,
+  abi?: any
 }
 
 export const useResponseStore = create<{
