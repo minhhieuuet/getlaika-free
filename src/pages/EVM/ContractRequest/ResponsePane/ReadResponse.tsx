@@ -1,11 +1,16 @@
 import { Response } from '@/store/responses'
 import ReactJson from 'react-json-view'
 import { useState, useEffect } from 'react'
-export default function ReadResponse({ response }: { response: Response }) {
+export default function ReadResponse({ response, clearResponses }: { response: Response, clearResponses: () => void }) {
   const [responseDisplay, setResponseDisplay] = useState()
   useEffect(() => {
+    // clearResponses()
+    if(typeof response?.result == 'bigint') {
+      response.result = {
+        value: response.result.toString(),
+      }
+    }
     if (response.result) {
-      console.log(typeof response.result, response.result)
       if (typeof response.result == 'number' || typeof response.result == 'bigint') {
         response.result = {
           value: response.result.toString(),

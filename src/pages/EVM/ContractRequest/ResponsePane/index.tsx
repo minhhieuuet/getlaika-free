@@ -21,7 +21,7 @@ export default function ResponsePane() {
         {responses.map((response) => {
           switch (response.type) {
             case 'READ':
-              return <ReadResponse response={response} />
+              return <ReadResponse response={response} clearResponses={clearResponses}/>
             case 'WRITE':
               return <WriteResponse response={response} />
             default:
