@@ -8,6 +8,7 @@ export interface Response {
   result?: string
   txHash?: `0x${string}`
   error?: Error,
+  //@ts-ignore
   abi?: any
 }
 
