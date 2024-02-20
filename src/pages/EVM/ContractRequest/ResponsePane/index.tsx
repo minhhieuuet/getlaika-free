@@ -1,16 +1,16 @@
 import { Button } from '@/components/ui/button'
 
 import { useResponseStore } from '@/store/responses'
-import {useRef, useEffect} from 'react';
+import { useEffect, useState } from 'react'
 import ReadResponse from './ReadResponse'
 import WriteResponse from './WriteResponse'
 
 export default function ResponsePane() {
   const { responses, clearResponses } = useResponseStore()
-  const responsesEndRef = useRef(null)
+  const [renderResponses, setRenderResponses] = useState(responses)
   useEffect(() => {
-    //@ts-ignore
-    responsesEndRef.current?.scrollIntoView({ behavior: "smooth" ,  block: "end", inline: "nearest" })
+    if (responses.length === 0) return setRenderResponses([])
+    setRenderResponses([responses[responses.length - 1]])
   }, [responses])
   return (
     <div className="h-full rounded-lg p-4 text-sm font-mono">
@@ -21,18 +21,17 @@ export default function ResponsePane() {
         </Button>
       </div>
       <div className="h-full overflow-y-auto">
-        {responses.length === 0 && <div className="text-center text-gray-500">No responses to display.</div>}
-        {responses.map((response) => {
+        {renderResponses.length === 0 && <div className="text-center text-gray-500">No responses to display.</div>}
+        {renderResponses.map((response) => {
           switch (response.type) {
             case 'READ':
-              return <ReadResponse response={response}/>
+              return <ReadResponse response={response} />
             case 'WRITE':
               return <WriteResponse response={response} />
             default:
               return <></>
           }
         })}
-        <div ref={responsesEndRef}></div>
       </div>
     </div>
   )
