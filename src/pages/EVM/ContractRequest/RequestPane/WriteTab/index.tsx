@@ -22,7 +22,7 @@ export default function WriteTab({ smartContract }: { smartContract: EVMContract
       .map((method) => {
         return {
           address,
-          abi: filteredMethods,
+          abi: filteredMethods.filter((method) => method.name.toLowerCase().includes(searchKey)),
           functionName: method.name,
         }
       })

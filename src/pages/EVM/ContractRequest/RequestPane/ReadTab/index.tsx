@@ -23,7 +23,7 @@ export default function ReadTab({ smartContract }: { smartContract: EVMContract 
       .map((method) => {
         return {
           address,
-          abi: infoMethods,
+          abi: infoMethods.filter((method) => method.name.toLowerCase().includes(searchKey)),
           functionName: method.name,
         }
       })
@@ -46,7 +46,7 @@ export default function ReadTab({ smartContract }: { smartContract: EVMContract 
       {readableMethods.map((method, idx) => {
         return (
           <ReadMethod
-            key={method.functionName}
+            key={searchKey + method.functionName + idx}
             chainId={smartContract.chainId}
             contractAddress={method.address}
             functionName={method.functionName}
