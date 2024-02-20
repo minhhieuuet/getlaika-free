@@ -52,6 +52,7 @@ export default function WriteTab({ smartContract }: { smartContract: EVMContract
             contractAddress={method.address}
             functionName={method.functionName}
             abi={method.abi[idx]}
+            generalAbi={JSON.parse(smartContract.contract?.abi)}
           />
         )
       })}

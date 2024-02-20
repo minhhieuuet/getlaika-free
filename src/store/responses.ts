@@ -9,7 +9,9 @@ export interface Response {
   txHash?: `0x${string}`
   error?: Error,
   //@ts-ignore
-  abi?: any
+  abi?: any,
+  //@ts-ignore
+  generalAbi?: any,
 }
 
 export const useResponseStore = create<{

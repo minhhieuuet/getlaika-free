@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { EVMABIMethod, EVMABIMethodInputsOutputs } from '@/store/collections'
+import { EVMABIMethod, EVMABIMethodInputsOutputs, EVMABI } from '@/store/collections'
 import { useResponseStore } from '@/store/responses'
 import { ReloadIcon } from '@radix-ui/react-icons'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
@@ -18,11 +18,13 @@ export default function WriteMethod({
   functionName,
   abi,
   contractAddress,
+  generalAbi
 }: {
   chainId?: number
   functionName: string
   abi: EVMABIMethod
-  contractAddress: Address
+  contractAddress: Address,
+  generalAbi: EVMABI
 }) {
   const [args, setArgs] = useState<Array<string>>(new Array(abi.inputs.length).fill(''))
   const [payableValue, setPayableValue] = useState<string>('')
@@ -45,6 +47,8 @@ export default function WriteMethod({
           chainId: chainId ? chainId : mainnet.id,
           address: contractAddress,
           error,
+          abi: abi,
+          generalAbi: generalAbi
         })
       }
 
@@ -54,6 +58,8 @@ export default function WriteMethod({
         chainId: chainId ? chainId : mainnet.id,
         address: contractAddress,
         txHash: data && data.hash,
+        abi: abi,
+        generalAbi: generalAbi
       })
     },
   })
