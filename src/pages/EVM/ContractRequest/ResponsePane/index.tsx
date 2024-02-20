@@ -1,13 +1,17 @@
 import { Button } from '@/components/ui/button'
 
 import { useResponseStore } from '@/store/responses'
-
+import {useRef, useEffect} from 'react';
 import ReadResponse from './ReadResponse'
 import WriteResponse from './WriteResponse'
 
 export default function ResponsePane() {
   const { responses, clearResponses } = useResponseStore()
-
+  const responsesEndRef = useRef(null)
+  useEffect(() => {
+    //@ts-ignore
+    responsesEndRef.current?.scrollIntoView({ behavior: "smooth" ,  block: "end", inline: "nearest" })
+  }, [responses])
   return (
     <div className="h-full rounded-lg p-4 text-sm font-mono">
       <div className="flex justify-between items-center mb-2">
@@ -21,13 +25,14 @@ export default function ResponsePane() {
         {responses.map((response) => {
           switch (response.type) {
             case 'READ':
-              return <ReadResponse response={response} clearResponses={clearResponses}/>
+              return <ReadResponse response={response}/>
             case 'WRITE':
               return <WriteResponse response={response} />
             default:
               return <></>
           }
         })}
+        <div ref={responsesEndRef}></div>
       </div>
     </div>
   )

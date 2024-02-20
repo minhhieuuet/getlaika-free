@@ -1,7 +1,7 @@
 import { Response } from '@/store/responses'
 import ReactJson from 'react-json-view'
 import { useState, useEffect } from 'react'
-export default function ReadResponse({ response, clearResponses }: { response: Response, clearResponses: () => void }) {
+export default function ReadResponse({ response }: { response: Response}) {
   const [responseDisplay, setResponseDisplay] = useState()
   useEffect(() => {
     // clearResponses()
