@@ -11,6 +11,7 @@ import { EVMABIMethod, EVMABIMethodInputsOutputs } from '@/store/collections'
 import { useResponseStore } from '@/store/responses'
 import { ReloadIcon } from '@radix-ui/react-icons'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { ethers } from 'ethers'
 
 export default function WriteMethod({
   chainId,
@@ -24,6 +25,7 @@ export default function WriteMethod({
   contractAddress: Address
 }) {
   const [args, setArgs] = useState<Array<string>>(new Array(abi.inputs.length).fill(''))
+  const [payableValue, setPayableValue] = useState<string>('')
 
   const { pushResponse } = useResponseStore()
 
@@ -57,6 +59,12 @@ export default function WriteMethod({
   })
 
   const handleWriteClick = () => {
+    if (abi.stateMutability == 'payable' && payableValue) {
+      write({
+        value: ethers.parseEther(payableValue),
+      })
+      return
+    }
     write()
   }
 
@@ -72,6 +80,18 @@ export default function WriteMethod({
       <CardContent className="p-4">
         <form>
           <div className="grid items-center w-full gap-4">
+            {abi && abi.stateMutability === 'payable' && (
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="value">Payable Value</Label>
+                <Input
+                  id="value"
+                  placeholder="Value"
+                  onChange={(e) => {
+                    setPayableValue(e.target.value)
+                  }}
+                />
+              </div>
+            )}
             {abi &&
               abi.inputs &&
               abi.inputs.map((field: EVMABIMethodInputsOutputs, idx: number) => {
