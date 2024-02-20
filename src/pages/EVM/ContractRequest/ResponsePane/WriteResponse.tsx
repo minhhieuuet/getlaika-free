@@ -11,10 +11,10 @@ export default function ReadResponse({ response }: { response: Response }) {
 
   const decodeLogs = (logs:any, abi: any) => {
         let web3 = new Web3();
-        const events = abi.filter((el) => {
+        const events = abi.filter((el: any) => {
             return el.type == 'event';
-        }).map((el) => {
-            const topic0 = web3.utils.keccak256(el.name + '(' + el.inputs.map((input) => {
+        }).map((el: any) => {
+            const topic0 = web3.utils.keccak256(el.name + '(' + el.inputs.map((input: any) => {
                 return input.type;
             }).join(',') + ')');
             return {
@@ -22,8 +22,8 @@ export default function ReadResponse({ response }: { response: Response }) {
                 topic0
             }
         });
-        return logs.map((log) => {
-            const event = events.find((el) => {
+        return logs.map((log: any) => {
+            const event = events.find((el: any) => {
                 return el.topic0 == log.topics[0];
             });
             if (!event) {
@@ -39,12 +39,13 @@ export default function ReadResponse({ response }: { response: Response }) {
                 address: log.address,
                 ...decoded
             }
-        }).filter(log => log.address);
+        }).filter((log: any) => log.address);
     }
 
   useEffect(() => {
     if(data) {
       let decodedLogs = decodeLogs(data?.logs, response.generalAbi)
+      //@ts-ignore
       data.decodedLogs = decodedLogs
     }
   }, [data])
