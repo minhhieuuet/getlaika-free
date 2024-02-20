@@ -5,7 +5,7 @@ export interface Response {
   functionName: string
   chainId: number
   address: `0x${string}`
-  result?: string
+  result?: any
   txHash?: `0x${string}`
   error?: Error,
   //@ts-ignore

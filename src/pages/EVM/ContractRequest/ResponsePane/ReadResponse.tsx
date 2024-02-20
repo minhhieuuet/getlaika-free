@@ -2,7 +2,7 @@ import { Response } from '@/store/responses'
 import ReactJson from 'react-json-view'
 import { useState, useEffect } from 'react'
 export default function ReadResponse({ response }: { response: Response }) {
-  const [responseDisplay, setResponseDisplay] = useState<Response>({});
+  const [responseDisplay, setResponseDisplay] = useState();
   useEffect(() => {
     let jsonResult:any = {};
     if (response.result) {
@@ -17,7 +17,7 @@ export default function ReadResponse({ response }: { response: Response }) {
       <p className="text-primary">
         CALLED TO {response.functionName} at [ChainID={response.chainId} {response.address}]
       </p>
-      <pre className="whitespace-pre"><ReactJson src={responseDisplay} /></pre>
+      <pre className="whitespace-pre"><ReactJson src={responseDisplay ? responseDisplay: {}} /></pre>
     </div>
   )
 }
