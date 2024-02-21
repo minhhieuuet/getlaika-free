@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { Abi, Address } from 'viem'
 import { useContractReads } from 'wagmi'
-
+import { Inspector } from 'react-inspector'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Table, TableBody, TableCaption, TableCell, TableRow } from '@/components/ui/table'
@@ -61,7 +61,7 @@ export default function StateTab({ smartContract }: { smartContract: EVMContract
                   <TableRow key={prefetchableMethods[idx].functionName}>
                     <TableCell>{`${prefetchableMethods[idx].functionName}`}</TableCell>
                     <TableCell>
-                      {`${JSON.stringify(row.result, (_, v) => typeof v === 'bigint' ? v.toString() : v)}`}
+                      <Inspector data={row.result} expandLevel={1}></Inspector>
                     </TableCell>
                   </TableRow>
                 )
