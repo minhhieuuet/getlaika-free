@@ -61,7 +61,7 @@ export default function StateTab({ smartContract }: { smartContract: EVMContract
                   <TableRow key={prefetchableMethods[idx].functionName}>
                     <TableCell>{`${prefetchableMethods[idx].functionName}`}</TableCell>
                     <TableCell>
-                      <Inspector data={row.result}></Inspector>
+                      <Inspector data={row.result} table={false}></Inspector>
                     </TableCell>
                   </TableRow>
                 )
