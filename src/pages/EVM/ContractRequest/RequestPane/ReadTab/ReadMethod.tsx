@@ -30,7 +30,16 @@ export default function ReadMethod({
     abi: [abi],
     functionName,
     enabled: false,
-    args,
+    args: args.map((arg) => {
+      if(arg.startsWith('[') && arg.endsWith(']')) {
+        try {
+          return JSON.parse(arg)
+        } catch (e) {
+          return arg
+        }
+      }
+      return arg;
+    }),
     chainId: chainId ? chainId : mainnet.id,
   })
 

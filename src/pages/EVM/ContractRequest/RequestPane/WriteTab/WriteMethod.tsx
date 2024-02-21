@@ -37,7 +37,16 @@ export default function WriteMethod({
     address: contractAddress,
     abi: [abi],
     functionName: functionName,
-    args,
+    args: args.map((arg) => {
+      if(arg.startsWith('[') && arg.endsWith(']')) {
+        try {
+          return JSON.parse(arg)
+        } catch (e) {
+          return arg
+        }
+      }
+      return arg;
+    }),
     chainId: chainId ? chainId : mainnet.id,
     onSettled(data, error) {
       if (error) {
